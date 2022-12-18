@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const double kBorderRadius = 40;
 
 const Color kRedColor = Color(0xFF941912);
+const Color kGreenColor = Color(0xFF129443);
 
 const TextStyle gameInformationTextStyle = TextStyle(
   fontSize: 20,

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ligretto_counter/data/settings_data.dart';
+import 'package:ligretto_counter/widgets/delete_player_warning.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -96,7 +97,11 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                             iconSize: 30,
                             backgroundColor: const Color(0xFFE6E6E6),
                             onTap: () {
-                              playerData.deletePlayer(player.id!);
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    DeletePlayerWarning(player.id),
+                              );
                             },
                           ),
                         ],
