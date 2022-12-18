@@ -4,7 +4,7 @@ import 'package:ligretto_counter/ligretto_counter_icons_icons.dart';
 import 'package:ligretto_counter/model/player.dart';
 import 'package:ligretto_counter/widgets/add_points_dialog.dart';
 import 'package:ligretto_counter/widgets/circular_button_widget.dart';
-import 'package:ligretto_counter/widgets/add_edit_player_widget.dart';
+import 'package:ligretto_counter/screens/add_edit_player_screen.dart';
 import 'package:ligretto_counter/widgets/settings_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -36,9 +36,11 @@ class ActionsRow extends StatelessWidget {
           icon: LigrettoCounterIcons.add_user,
           onTap: () {
             if (players.length < 4) {
-              showDialog(
-                context: context,
-                builder: (context) => const AddEditPlayer(editPlayer: false),
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) =>
+                      AddEditPlayerScreen(editPlayer: false)),
+                ),
               );
             } else {
               showDialog(

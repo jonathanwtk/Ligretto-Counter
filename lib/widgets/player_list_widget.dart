@@ -9,7 +9,7 @@ import '../model/player.dart';
 import '../data/player_data.dart';
 import './circular_button_widget.dart';
 import './content_box_widget.dart';
-import './add_edit_player_widget.dart';
+import '../screens/add_edit_player_screen.dart';
 
 class PlayerListWidget extends StatefulWidget {
   final bool editPlayerMode;
@@ -80,7 +80,7 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                             onTap: () {
                               showDialog(
                                 context: context,
-                                builder: (context) => AddEditPlayer(
+                                builder: (context) => AddEditPlayerScreen(
                                   editPlayer: true,
                                   playerToEditID: player.id,
                                 ),
