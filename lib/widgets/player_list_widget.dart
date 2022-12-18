@@ -78,11 +78,12 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                             iconSize: 28,
                             backgroundColor: const Color(0xFFE6E6E6),
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AddEditPlayerScreen(
-                                  editPlayer: true,
-                                  playerToEditID: player.id,
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => AddEditPlayerScreen(
+                                    editPlayer: true,
+                                    playerToEditID: player.id,
+                                  ),
                                 ),
                               );
                             },

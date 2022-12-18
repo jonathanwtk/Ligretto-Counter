@@ -3,8 +3,6 @@ import 'package:ligretto_counter/constants.dart';
 import 'package:ligretto_counter/model/player.dart';
 import 'package:ligretto_counter/widgets/character_selection_card_widget.dart';
 import 'package:ligretto_counter/widgets/content_box_widget.dart';
-import 'package:ligretto_counter/widgets/custom_dialog.dart';
-import 'package:ligretto_counter/widgets/player_list_widget.dart';
 import 'package:ligretto_counter/widgets/rounded_button_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -175,7 +173,7 @@ class _SelectCharacterState extends State<SelectCharacter> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
       shrinkWrap: true,
       itemCount: 12,
