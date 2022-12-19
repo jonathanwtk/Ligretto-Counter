@@ -33,12 +33,12 @@ class GameInformation extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            'Rundengewinner*in: ${gameInformationsData.gameInformations.roundNumber != 0 ? playerData.players.firstWhere((player) => player.id == gameInformationsData.gameInformations.winnerID).name : '-'}',
+            'Rundengewinner*in: ${gameInformationsData.gameInformations.winnerID != null && gameInformationsData.gameInformations.roundNumber > 0 ? playerData.players.firstWhere((player) => player.id == gameInformationsData.gameInformations.winnerID).name : '-'}',
             style: gameInformationTextStyle,
           ),
           const SizedBox(height: 5),
           Text(
-            'Punktedifferenz: ${gameInformationsData.gameInformations.roundNumber != 0 ? playerData.getSortedPlayers().first.points - playerData.getSortedPlayers().last.points : '-'}',
+            'Punktedifferenz: ${gameInformationsData.gameInformations.roundNumber != 0 && playerData.players.length > 1 ? playerData.getSortedPlayers().first.points - playerData.getSortedPlayers().last.points : '-'}',
             style: gameInformationTextStyle,
           ),
           const SizedBox(height: 5),

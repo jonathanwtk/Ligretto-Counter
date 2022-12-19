@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ligretto_counter/data/settings_data.dart';
+import 'package:ligretto_counter/widgets/delete_player_warning.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -9,7 +10,7 @@ import '../model/player.dart';
 import '../data/player_data.dart';
 import './circular_button_widget.dart';
 import './content_box_widget.dart';
-import './add_edit_player_widget.dart';
+import '../screens/add_edit_player_screen.dart';
 
 class PlayerListWidget extends StatefulWidget {
   final bool editPlayerMode;
@@ -78,11 +79,12 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                             iconSize: 28,
                             backgroundColor: const Color(0xFFE6E6E6),
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AddEditPlayer(
-                                  editPlayer: true,
-                                  playerToEditID: player.id,
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => AddEditPlayerScreen(
+                                    editPlayer: true,
+                                    playerToEditID: player.id,
+                                  ),
                                 ),
                               );
                             },
@@ -95,7 +97,11 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                             iconSize: 30,
                             backgroundColor: const Color(0xFFE6E6E6),
                             onTap: () {
-                              playerData.deletePlayer(player.id!);
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    DeletePlayerWarning(player.id),
+                              );
                             },
                           ),
                         ],

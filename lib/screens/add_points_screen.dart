@@ -8,10 +8,10 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../data/player_data.dart';
 import '../model/player.dart';
-import './rounded_button_widget.dart';
+import '../widgets/rounded_button_widget.dart';
 
-class AddPointsDialog extends StatelessWidget {
-  const AddPointsDialog({Key? key}) : super(key: key);
+class AddPointsScreen extends StatelessWidget {
+  const AddPointsScreen({Key? key}) : super(key: key);
 
   List<TableRow> getPlayerTableRows(
     Map<int, TextEditingController> ligrettoStabelControllers,
@@ -134,39 +134,87 @@ class AddPointsDialog extends StatelessWidget {
       tischControllers[player.id!] = TextEditingController();
     }
 
-    return CustomDialog(
-      content: Table(
-        columnWidths: const {
-          0: IntrinsicColumnWidth(flex: 2),
-          1: IntrinsicColumnWidth(flex: 3),
-          2: IntrinsicColumnWidth(flex: 3),
-        },
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: getPlayerTableRows(
-            ligrettoStapelControllers, tischControllers, players),
-      ),
-      action: RoundedButton(
-        text: 'Punkteanzahl übernehmen',
-        color: kRedColor,
-        textColor: Colors.white,
-        onTap: () {
-          for (var player in players) {
-            int ligrettoStapel = int.parse(
-                ligrettoStapelControllers[player.id!]!.text != ''
-                    ? ligrettoStapelControllers[player.id!]!.text
-                    : '0');
-            int tischMitte = int.parse(tischControllers[player.id!]!.text != ''
-                ? tischControllers[player.id!]!.text
-                : '0');
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color(0xFF941912),
+        body: SafeArea(
+          maintainBottomViewPadding: true,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      child: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.white,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Punkte hinzufügen',
+                        textAlign: TextAlign.center,
+                        style: gameInformationHeadlineTextStyle.copyWith(
+                          color: Colors.white,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Container(),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                ContentBox(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Table(
+                    columnWidths: const {
+                      0: IntrinsicColumnWidth(flex: 2),
+                      1: IntrinsicColumnWidth(flex: 3),
+                      2: IntrinsicColumnWidth(flex: 3),
+                    },
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: getPlayerTableRows(
+                        ligrettoStapelControllers, tischControllers, players),
+                  ),
+                ),
+                const Spacer(),
+                RoundedButton(
+                  text: 'Punkteanzahl übernehmen',
+                  color: Colors.white,
+                  textColor: Colors.black,
+                  onTap: () {
+                    for (var player in players) {
+                      int ligrettoStapel = int.parse(
+                          ligrettoStapelControllers[player.id!]!.text != ''
+                              ? ligrettoStapelControllers[player.id!]!.text
+                              : '0');
+                      int tischMitte = int.parse(
+                          tischControllers[player.id!]!.text != ''
+                              ? tischControllers[player.id!]!.text
+                              : '0');
 
-            playerData.addPoints(player.id!, -ligrettoStapel * 2 + tischMitte,
-                gameInformationsData.gameInformations);
-          }
+                      playerData.addPoints(
+                          player.id!,
+                          -ligrettoStapel * 2 + tischMitte,
+                          gameInformationsData.gameInformations);
+                    }
 
-          gameInformationsData.updateGameInformations(playerData);
+                    gameInformationsData.updateGameInformations(playerData);
 
-          Navigator.of(context).pop();
-        },
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

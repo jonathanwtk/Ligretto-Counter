@@ -24,7 +24,6 @@ class CustomDialog extends StatelessWidget {
               right: 20.0,
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-            // padding: ,
             child: Material(
               color: Colors.transparent,
               child: Column(

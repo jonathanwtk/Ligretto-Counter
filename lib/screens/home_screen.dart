@@ -79,13 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     showPoints: evaluated,
                   ),
                   RoundedButton(
-                    text: evaluated ? 'Zurücksetzen' : 'Auswerten',
+                    text: evaluated ? 'Verbergen' : 'Auswerten',
                     onTap: () {
-                      if (evaluated) {
-                        playerData.resetAllPoints();
-                        gameInformationsData.resetGameInformations();
-                      }
-
                       gameInformationsData.setEvaluated = !evaluated;
                     },
                   ),

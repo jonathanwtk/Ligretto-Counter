@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ligretto_counter/constants.dart';
+import 'package:ligretto_counter/functions/darken_color_extension.dart';
 
-class CircularButton extends StatelessWidget {
+class CircularButton extends StatefulWidget {
   final IconData icon;
   final Function() onTap;
   final bool hasShadow;
@@ -20,20 +21,44 @@ class CircularButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CircularButton> createState() => _CircularButtonState();
+}
+
+class _CircularButtonState extends State<CircularButton> {
+  bool isTapped = false;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
+      onTapDown: (_) {
+        setState(() {
+          isTapped = true;
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          isTapped = false;
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          isTapped = false;
+        });
+      },
       child: Container(
-        height: size,
-        width: size,
+        height: widget.size,
+        width: widget.size,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: isTapped
+              ? widget.backgroundColor.darken(0.2)
+              : widget.backgroundColor,
           shape: BoxShape.circle,
-          boxShadow: hasShadow ? kShadow : [],
+          boxShadow: widget.hasShadow ? kShadow : [],
         ),
         child: Icon(
-          icon,
-          size: iconSize,
+          widget.icon,
+          size: widget.iconSize,
         ),
       ),
     );
