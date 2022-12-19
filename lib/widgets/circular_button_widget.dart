@@ -25,38 +25,34 @@ class CircularButton extends StatefulWidget {
 }
 
 class _CircularButtonState extends State<CircularButton> {
-  Color buttonBackgroundColor = Colors.white;
-
-  @override
-  void initState() {
-    buttonBackgroundColor = widget.backgroundColor;
-    super.initState();
-  }
+  bool isTapped = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      // onTapDown: (_) {
-      //   setState(() {
-      //     buttonBackgroundColor = buttonBackgroundColor.darken(0.2);
-      //   });
-      // },
-      // onTapUp: (_) {
-      //   setState(() {
-      //     buttonBackgroundColor = widget.backgroundColor;
-      //   });
-      // },
-      // onTapCancel: () {
-      //   setState(() {
-      //     buttonBackgroundColor = widget.backgroundColor;
-      //   });
-      // },
+      onTapDown: (_) {
+        setState(() {
+          isTapped = true;
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          isTapped = false;
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          isTapped = false;
+        });
+      },
       child: Container(
         height: widget.size,
         width: widget.size,
         decoration: BoxDecoration(
-          color: buttonBackgroundColor,
+          color: isTapped
+              ? widget.backgroundColor.darken(0.2)
+              : widget.backgroundColor,
           shape: BoxShape.circle,
           boxShadow: widget.hasShadow ? kShadow : [],
         ),
