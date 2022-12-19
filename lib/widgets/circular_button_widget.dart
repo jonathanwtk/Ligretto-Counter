@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ligretto_counter/constants.dart';
+import 'package:ligretto_counter/functions/darken_color_extension.dart';
 
 class CircularButton extends StatefulWidget {
   final IconData icon;
@@ -24,15 +25,6 @@ class CircularButton extends StatefulWidget {
 }
 
 class _CircularButtonState extends State<CircularButton> {
-  Color darken(Color color, [double amount = .1]) {
-    assert(amount >= 0 && amount <= 1);
-
-    final hsl = HSLColor.fromColor(color);
-    final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
-
-    return hslDark.toColor();
-  }
-
   Color buttonBackgroundColor = Colors.white;
 
   @override
@@ -45,16 +37,21 @@ class _CircularButtonState extends State<CircularButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      onTapDown: (_) {
-        setState(() {
-          buttonBackgroundColor = darken(buttonBackgroundColor, 0.2);
-        });
-      },
-      onTapUp: (_) {
-        setState(() {
-          buttonBackgroundColor = widget.backgroundColor;
-        });
-      },
+      // onTapDown: (_) {
+      //   setState(() {
+      //     buttonBackgroundColor = buttonBackgroundColor.darken(0.2);
+      //   });
+      // },
+      // onTapUp: (_) {
+      //   setState(() {
+      //     buttonBackgroundColor = widget.backgroundColor;
+      //   });
+      // },
+      // onTapCancel: () {
+      //   setState(() {
+      //     buttonBackgroundColor = widget.backgroundColor;
+      //   });
+      // },
       child: Container(
         height: widget.size,
         width: widget.size,
