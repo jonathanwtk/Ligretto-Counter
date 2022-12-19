@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ligretto_counter/constants.dart';
+import 'package:ligretto_counter/data/game_informations_data.dart';
+import 'package:ligretto_counter/model/game_informations.dart';
 import 'package:ligretto_counter/widgets/custom_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,8 @@ class DeletePlayerWarning extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PlayerData playerData = context.read<PlayerData>();
+    GameInformations gameInformations =
+        context.read<GameInformationsData>().gameInformations;
     return CustomDialog(
       content: Column(
         children: const [
@@ -50,6 +54,11 @@ class DeletePlayerWarning extends StatelessWidget {
               textColor: Colors.white,
               onTap: () {
                 playerData.deletePlayer(playerID!);
+
+                if (gameInformations.winnerID == playerID) {
+                  gameInformations.winnerID = null;
+                }
+
                 Navigator.of(context).pop();
               },
             ),
